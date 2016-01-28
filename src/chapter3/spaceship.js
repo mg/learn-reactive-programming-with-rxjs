@@ -9,5 +9,5 @@ export default function(canvas) {
   const mouseMove= Rx.Observable.fromEvent(canvas, 'mousemove')
   return mouseMove
     .map(e => position(e.clientX - 100))
-    startWidth(position(canvas.width/2))
+    .startWith(position(canvas.width/2))
 }

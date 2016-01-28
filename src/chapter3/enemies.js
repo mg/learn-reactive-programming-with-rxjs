@@ -19,11 +19,14 @@ export default function Enemies(canvas) {
 
       Rx.Observable.interval(ENEMY_SHOOTING_FREQ).subscribe(
         () => {
-          enemy.shots.push({x: enemy.x, y: enemy.y})
+          if(!enemy.isDead)
+            enemy.shots.push({x: enemy.x, y: enemy.y})
           enemy.shots= enemy.shots.filter(isVisible)
         }
       )
       enemies.push(enemy)
-      return enemies.filter(isVisible)
+      return enemies
+        .filter(isVisible)
+        .filter(enemy => !(enemy.isDead && enemy.shots.length === 0))
     }, [])
 }

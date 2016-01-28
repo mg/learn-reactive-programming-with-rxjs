@@ -9,7 +9,7 @@ export default class Chapter3 extends React.Component {
     return (
       <div>
         <h3>Chapter 3 - Spaceship</h3>
-        <canvas width={500} height={500} ref={e => this.canvas= e}></canvas>
+        <canvas width={500} height={500} tabIndex={1} ref={e => this.canvas= e}></canvas>
       </div>
     )
   }

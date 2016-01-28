@@ -6,7 +6,9 @@ import StarField from './starfield.js'
 import Spaceship from './spaceship.js'
 import Shots from './shots.js'
 import Enemies from './enemies.js'
+import { Score } from './score.js'
 
+import { gameOver } from './util.js'
 
 export default function Game(canvas) {
   let ctx= canvas.getContext('2d')
@@ -25,6 +27,7 @@ export default function Game(canvas) {
       shotArray.push(shot)
       return shotArray
     }, [])
+    .startWith([])
 
   return Rx.Observable
     .combineLatest(
@@ -32,9 +35,11 @@ export default function Game(canvas) {
       spaceShip,
       Enemies(canvas),
       heroShots,
-      (stars, spaceship, enemies, shots) => {
-        return { stars, spaceship, enemies, shots}
+      Score,
+      (stars, spaceship, enemies, shots, score) => {
+        return { stars, spaceship, enemies, shots, score}
       }
     )
     .sample(GAME_SPEED)
+    .takeWhile(actors => gameOver(actors.spaceship, actors.enemies) === false)
 }
