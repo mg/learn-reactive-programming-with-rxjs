@@ -1,6 +1,7 @@
 import React from 'react'
 import { Link } from 'react-router'
 const links= [
+  { to: '/c2', label: 'Chapter 2' },
   { to: '/c3', label: 'Chapter 3' },
 ]
 
@@ -14,9 +15,9 @@ const Menu= ({locale, setLocale}) =>
   </ul>
 
 const Main= ({locale, setLocale, children}) =>
-  <div style={{display: 'flex'}}>
+  <div style={{display: 'flex', height: '100%'}}>
     <Menu locale={locale} setLocale={setLocale}/>
-    <div style={{flexGrow: 1}}>
+    <div style={{flexGrow: 1, alignSelf: 'stretch', display: 'flex', alignItems: 'stretch', width: '100%'}}>
       {children}
     </div>
   </div>
